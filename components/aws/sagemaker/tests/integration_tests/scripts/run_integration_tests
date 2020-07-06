@@ -124,7 +124,7 @@ function install_kfp() {
 
   echo "[Installing KFP] Port-forwarding Minio"
 
-  kubectl wait --for=condition=ready -n "${KFP_NAMESPACE}" pod -l app=minio --timeout=5m
+  kubectl wait --for=condition=ready -n "${KFP_NAMESPACE}" pod -l app=minio --timeout=15m
   kubectl port-forward -n kubeflow svc/minio-service $MINIO_LOCAL_PORT:9000 &
   MINIO_PID=$!
 
@@ -132,7 +132,7 @@ function install_kfp() {
 
   echo "[Installing KFP] Waiting for pods to stand up"
 
-  kubectl wait --for=condition=ready -n "${KFP_NAMESPACE}" pod -l app=ml-pipeline --timeout=5m
+  kubectl wait --for=condition=ready -n "${KFP_NAMESPACE}" pod -l app=ml-pipeline --timeout=15m
 
   # TODO: Replace with calculated waits
   # For the moment we don't know which pods will be slower, so we are just relying on a fixed interval
